@@ -70,6 +70,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
 ]
+
+CORS_URLS_REGEX = r'^/media/.*$'
+
 ROOT_URLCONF = 'root.urls'
 
 TEMPLATES = [
