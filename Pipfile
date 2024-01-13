@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-ckeditor = "*"
+pillow = "*"
+djangorestframework = "*"
+django-debug-toolbar = "*"
+drf-nested-routers = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+channels = "*"
+channels-redis = "*"
+django-cors-headers = "*"
+django-rest-framework-social-oauth2 = "*"
+daphne = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
