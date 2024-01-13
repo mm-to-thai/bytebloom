@@ -67,6 +67,9 @@ MIDDLEWARE = [
 
 ]
 CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOWED_ORIGINS = [
+    'http://146.190.84.162:8000',
+]
 ROOT_URLCONF = 'root.urls'
 
 TEMPLATES = [
