@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%z9y2m&208y)3m)_jk=@wkf&js-(l%%(abunp)-8#s0a!*-#9)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["146.190.84.162"]
 
 
 # Application definition
@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'portfolio_db',
@@ -97,8 +97,15 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
     }
+} """
+DATABASES = {
+	'default': {
+    	'ENGINE': 'django.db.backends.mysql',
+    	'OPTIONS': {
+        	'read_default_file': '/etc/mysql/my.cnf',
+    	},
+	}
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
