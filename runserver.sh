@@ -2,4 +2,4 @@ python manage.py collectstatic --no-input
 
 python manage.py migrate
 
-gunicorn --worker-tmp-dir /dev/shm root.wsgi:application  
+gunicorn --bind 0.0.0.0:8000 root.wsgi:application
