@@ -20,6 +20,7 @@ daphne = "*"
 mysqlclient = "*"
 django-environ = "*"
 whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
