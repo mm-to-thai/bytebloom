@@ -21,10 +21,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%z9y2m&208y)3m)_jk=@wkf&js-(l%%(abunp)-8#s0a!*-#9)'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+""" SECRET_KEY = 'django-insecure-%z9y2m&208y)3m)_jk=@wkf&js-(l%%(abunp)-8#s0a!*-#9)'
+SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ """
+import environ
+
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE',default=False)
+if READ_DOT_ENV_FILE:
+    environ.Env.read_env()
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
+
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 
 ALLOWED_HOSTS = [
     "146.190.84.162",
@@ -54,6 +74,7 @@ INSTALLED_APPS = [
 ]
 SITE_ID = 1
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +98,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,11 +129,13 @@ WSGI_APPLICATION = 'root.wsgi.application'
 } """
 DATABASES = {
 	'default': {
-    	'ENGINE': 'django.db.backends.mysql',
-    	'OPTIONS': {
-        	'read_default_file': '/etc/mysql/my.cnf',
-    	},
-	}
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),  # Or the IP address/hostname of your MySQL server
+        'PORT': env.int('DB_PORT',default=3306),           # Default MySQL port is usually 3306
+    }
 }
 
 # Password validation
@@ -151,8 +174,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
