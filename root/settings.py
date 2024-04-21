@@ -49,6 +49,7 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = [
     "146.190.84.162",
     '127.0.0.1',
+    "portfolio-app-h9rkv.ondigitalocean.app",
     ]
 
 
